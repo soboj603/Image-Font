@@ -28,13 +28,13 @@
             --result-box-border: var(--primary-color);
             --gemini-color: #4285F4; 
             --chatgpt-color: #10a37f;
-            --overlay-title-color: #ffffff; /* Dark mode title */
+            --overlay-title-color: #ffffff;
         }
         
         .light-mode {
             --primary-color: #ff6b6b;        
             --secondary-color: #8e44ad;      
-            --text-color: #1a1a2e; /* 🔥 CHANGED TO DARK TEXT FOR LIGHT MODE */          
+            --text-color: #1a1a2e;          
             --text-color-dark: #FFFFFF;      
             --bg-dark: #f4f7f9;              
             --card-dark: #ffffff;            
@@ -45,7 +45,7 @@
             --shadow-color: rgba(44, 62, 80, 0.15);
             --result-box-bg: #fff0f0;
             --result-box-border: var(--primary-color);
-            --overlay-title-color: #1a1a2e; /* 🔥 Light mode title (Dark Color) */
+            --overlay-title-color: #1a1a2e;
         }
 
         /* BASIC SETUP */
@@ -251,7 +251,6 @@
         .image-title-view {
             font-size: 1.1rem; 
             font-weight: 700; 
-            /* 🔥 FIX: USE VARIABLE INSTEAD OF FIXED WHITE */
             color: var(--overlay-title-color); 
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
             margin-bottom: 8px; 
@@ -289,7 +288,6 @@
         
         .result-box {
             padding: 8px; margin: 0 auto 8px auto; background-color: var(--result-box-bg);
-            /* 🔥 FIX: ENSURE TEXT COLOR IS CONTRASTING IN LIGHT MODE */
             color: var(--text-color); 
             border-radius: 8px; font-size: 0.9rem; line-height: 1.5;
             border: 1px solid var(--result-box-border); 
@@ -314,7 +312,7 @@
         
         .btn-logo-img { height: 16px; width: 16px; object-fit: contain; pointer-events: none; display: block; }
 
-        /* BANNER AD CSS FIXED */
+        /* BANNER AD CSS (VIDEO REMOVED) */
         .banner-ad-container {
             width: 100%;
             height: 110px;
@@ -522,8 +520,10 @@
             localStorage.setItem('unique_uid', USER_ID);
         }
 
-        // Ads Logic
+        // 🔥🔥 ADS CYCLE LOGIC (VIDEO REMOVED) 🔥🔥
         let allBannerAds = [];
+        let availableAds = []; 
+
         function fetchBannerAds() {
             db.ref('banner_ads').on('value', snap => {
                 allBannerAds = [];
@@ -533,6 +533,7 @@
                         allBannerAds.push(ad);
                     }
                 });
+                availableAds = [...allBannerAds];
             });
         }
         fetchBannerAds();
@@ -540,22 +541,27 @@
         function showRandomAd() {
             const containerLink = document.getElementById('bannerAdLink');
             const mediaBox = document.getElementById('adMediaContainer');
-            if (allBannerAds.length > 0) {
-                const randomAd = allBannerAds[Math.floor(Math.random() * allBannerAds.length)];
-                containerLink.href = randomAd.targetUrl;
-                if (randomAd.type === 'video') {
-                    mediaBox.innerHTML = `
-                        <video class="banner-ad-media" autoplay loop muted playsinline>
-                            <source src="${randomAd.url}" type="video/mp4">
-                        </video>
-                    `;
-                } else {
-                    mediaBox.innerHTML = `<img src="${randomAd.url}" class="banner-ad-media">`;
-                }
-                containerLink.style.display = 'flex'; 
-            } else {
+            
+            if (allBannerAds.length === 0) {
                 containerLink.style.display = 'none';
+                return;
             }
+
+            if (availableAds.length === 0) {
+                availableAds = [...allBannerAds];
+            }
+
+            const randomIndex = Math.floor(Math.random() * availableAds.length);
+            const selectedAd = availableAds[randomIndex];
+            
+            availableAds.splice(randomIndex, 1);
+
+            containerLink.href = selectedAd.targetUrl;
+            
+            // Only Show Image/GIF
+            mediaBox.innerHTML = `<img src="${selectedAd.url}" class="banner-ad-media">`;
+            
+            containerLink.style.display = 'flex'; 
         }
 
         const scrollObserver = new IntersectionObserver((entries) => {
