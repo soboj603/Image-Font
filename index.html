@@ -28,12 +28,13 @@
             --result-box-border: var(--primary-color);
             --gemini-color: #4285F4; 
             --chatgpt-color: #10a37f;
+            --overlay-title-color: #ffffff; /* Dark mode title */
         }
         
         .light-mode {
             --primary-color: #ff6b6b;        
             --secondary-color: #8e44ad;      
-            --text-color: #2c3e50;           
+            --text-color: #1a1a2e; /* 🔥 CHANGED TO DARK TEXT FOR LIGHT MODE */          
             --text-color-dark: #FFFFFF;      
             --bg-dark: #f4f7f9;              
             --card-dark: #ffffff;            
@@ -44,6 +45,7 @@
             --shadow-color: rgba(44, 62, 80, 0.15);
             --result-box-bg: #fff0f0;
             --result-box-border: var(--primary-color);
+            --overlay-title-color: #1a1a2e; /* 🔥 Light mode title (Dark Color) */
         }
 
         /* BASIC SETUP */
@@ -249,8 +251,9 @@
         .image-title-view {
             font-size: 1.1rem; 
             font-weight: 700; 
-            color: #ffffff; 
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9); 
+            /* 🔥 FIX: USE VARIABLE INSTEAD OF FIXED WHITE */
+            color: var(--overlay-title-color); 
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
             margin-bottom: 8px; 
             width: 100%; 
             border-bottom: 2px solid transparent;
@@ -286,7 +289,9 @@
         
         .result-box {
             padding: 8px; margin: 0 auto 8px auto; background-color: var(--result-box-bg);
-            color: var(--text-color); border-radius: 8px; font-size: 0.9rem; line-height: 1.5;
+            /* 🔥 FIX: ENSURE TEXT COLOR IS CONTRASTING IN LIGHT MODE */
+            color: var(--text-color); 
+            border-radius: 8px; font-size: 0.9rem; line-height: 1.5;
             border: 1px solid var(--result-box-border); 
             width: 100%; 
             height: 110px; 
@@ -309,30 +314,27 @@
         
         .btn-logo-img { height: 16px; width: 16px; object-fit: contain; pointer-events: none; display: block; }
 
-        /* 🔥 BANNER AD CSS FIXED (Full Width & Filled) */
+        /* BANNER AD CSS FIXED */
         .banner-ad-container {
             width: 100%;
-            height: 110px; /* FIXED HEIGHT */
+            height: 110px;
             margin-top: 15px;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            display: none; /* Hidden by default */
+            display: none;
             cursor: pointer;
             position: relative;
             background: #000;
         }
         
-        /* Forces image to stretch exactly to container size */
         .banner-ad-media {
-            
-            width: 1100%;
+            width: 100%;
             height: 100%;
-            object-fit: cover; /* This makes it fill the container, cropping if needed */
+            object-fit: cover;
             display: block;
             border: none;
-            pointer-events: none; /* Prevents clicking video controls */
-            
+            pointer-events: none;
         }
 
         .ad-label {
@@ -343,16 +345,72 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
 
-        /* PRELOADER */
-        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .loading-spinner { width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; }
+        /* MODERN HIGH-QUALITY PRELOADER */
+        #preloader { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            z-index: 3000; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; 
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        .loader-content {
+            position: relative;
+            width: 150px; height: 150px;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .loader-ring {
+            position: absolute;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: #00d2ff;
+            animation: ringSpin 1.5s linear infinite;
+        }
+
+        .loader-ring:nth-child(2) {
+            width: 70%; height: 70%;
+            border-top-color: #3a7bd5;
+            animation: ringSpin 2s linear infinite reverse;
+        }
+
+        .loader-ring:nth-child(3) {
+            width: 40%; height: 40%;
+            border-top-color: #9c27b0;
+            animation: ringSpin 1s linear infinite;
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            font-size: 1.2rem; font-weight: 500;
+            background: linear-gradient(90deg, #00d2ff, #9c27b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulseText 2s infinite ease-in-out;
+            letter-spacing: 2px;
+        }
+
+        @keyframes ringSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.6; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
     </style>
 </head>
 <body class="gallery-active"> 
     
     <div id="preloader">
-         <div class="loading-spinner"></div>
-         <p style="color: white; margin-top: 10px;">Loading...</p>
+         <div class="loader-content">
+             <div class="loader-ring"></div>
+             <div class="loader-ring"></div>
+             <div class="loader-ring"></div>
+         </div>
+         <p class="loader-text">LOADING...</p>
     </div>
 
     <div class="all-bar">  
@@ -412,12 +470,9 @@
                         </div>
                     </div>
 
-                    <!-- 🔥 FIXED BANNER AD (Video/Image) -->
                     <a id="bannerAdLink" href="#" target="_blank" class="banner-ad-container">
                         <span class="ad-label">AD</span>
-                        <div id="adMediaContainer" style="width:100%; height:100%;">
-                            <!-- Dynamic Media -->
-                        </div>
+                        <div id="adMediaContainer" style="width:100%; height:100%;"></div>
                     </a>
 
                 </div>
@@ -467,7 +522,7 @@
             localStorage.setItem('unique_uid', USER_ID);
         }
 
-        // 🔥 FETCH ADS LOGIC
+        // Ads Logic
         let allBannerAds = [];
         function fetchBannerAds() {
             db.ref('banner_ads').on('value', snap => {
@@ -482,16 +537,12 @@
         }
         fetchBannerAds();
 
-        // 🔥 SHOW RANDOM AD
         function showRandomAd() {
             const containerLink = document.getElementById('bannerAdLink');
             const mediaBox = document.getElementById('adMediaContainer');
-            
             if (allBannerAds.length > 0) {
                 const randomAd = allBannerAds[Math.floor(Math.random() * allBannerAds.length)];
-                
                 containerLink.href = randomAd.targetUrl;
-                
                 if (randomAd.type === 'video') {
                     mediaBox.innerHTML = `
                         <video class="banner-ad-media" autoplay loop muted playsinline>
@@ -501,8 +552,7 @@
                 } else {
                     mediaBox.innerHTML = `<img src="${randomAd.url}" class="banner-ad-media">`;
                 }
-                
-                containerLink.style.display = 'flex'; // Changed to Flex to support centering/filling
+                containerLink.style.display = 'flex'; 
             } else {
                 containerLink.style.display = 'none';
             }
@@ -515,7 +565,6 @@
             });
         }, { threshold: 0.15 });
 
-        // Settings
         function fetchSiteSettings() {
             db.ref('site_settings').on('value', snapshot => {
                 const data = snapshot.val();
@@ -530,7 +579,6 @@
             });
         }
 
-        // Load Images
         let allFetchedImages = [];
         let currentIndex = 0;
         const cardsPerLoad = 8;
@@ -560,11 +608,34 @@
                         document.getElementById('loadMoreButton').style.display = 'none';
                     } else {
                         loadMoreImages();
-                        setTimeout(() => document.getElementById('preloader').style.display = 'none', 500);
+                        setTimeout(() => {
+                            const preloader = document.getElementById('preloader');
+                            preloader.style.opacity = '0';
+                            setTimeout(() => preloader.style.display = 'none', 500);
+                        }, 800);
+                        checkUrlAndRestoreState();
                     }
                 });
             });
         }
+
+        function checkUrlAndRestoreState() {
+            const hash = window.location.hash.substring(1); 
+            if(hash && allFetchedImages.length > 0) {
+                const imgData = allFetchedImages.find(img => img.safeId === hash);
+                if(imgData) {
+                    populateAndOpenOverlay(imgData);
+                }
+            }
+        }
+
+        window.addEventListener('popstate', function(event) {
+            if(!window.location.hash) {
+                closeOverlayLogic();
+            } else {
+                checkUrlAndRestoreState();
+            }
+        });
 
         function createCard(img) {
             const div = document.createElement('div');
@@ -582,18 +653,21 @@
                 </div>
                 <p class="image-title">${img.fullTitle}</p>
             `;
+            
             viewsRef.child(img.safeId).child('count').on('value', s => {
                 div.querySelector('.view-count-number').innerText = (s.val() || 0).toLocaleString();
             });
             likesRef.child(img.safeId).child('count').on('value', s => {
                 div.querySelector('.like-count-number').innerText = (s.val() || 0).toLocaleString();
             });
+            
             likesRef.child(img.safeId).child('users').child(USER_ID).once('value', s => {
                 if(s.val()) {
                     const icon = div.querySelector('.like-icon');
                     icon.classList.remove('far'); icon.classList.add('fas');
                 }
             });
+
             div.addEventListener('click', (e) => {
                 if(!e.target.closest('.like-count')) openImageView(div);
             });
@@ -601,6 +675,7 @@
                 e.stopPropagation();
                 toggleLike(div.querySelector('.like-count'));
             });
+            
             div.style.display = 'block'; 
             scrollObserver.observe(div);
             return div;
@@ -629,24 +704,37 @@
 
         function openImageView(cardWrapper) {
             const safeId = cardWrapper.querySelector('.like-count').getAttribute('data-image-id');
-            const viewUserRef = viewsRef.child(safeId).child('users').child(USER_ID);
-            viewUserRef.once('value', snapshot => {
-                if (!snapshot.exists()) {
-                    viewsRef.child(safeId).child('count').transaction(c => (c || 0) + 1);
-                    viewUserRef.set(true); 
-                }
-            });
-
             const imgUrl = cardWrapper.querySelector('img').src;
             const fullTitle = cardWrapper.getAttribute('data-full-title');
             const prompt = cardWrapper.getAttribute('data-prompt');
 
-            document.getElementById('enlargedImage').src = imgUrl;
-            document.getElementById('enlargedImage').alt = safeId; 
-            document.getElementById('enlargedImageTitle').textContent = fullTitle;
+            const imgData = {
+                safeId: safeId,
+                url: imgUrl,
+                fullTitle: fullTitle,
+                prompt: prompt
+            };
+            populateAndOpenOverlay(imgData);
+        }
+
+        function populateAndOpenOverlay(data) {
+            if(window.location.hash.substring(1) !== data.safeId) {
+                window.location.hash = data.safeId;
+            }
+
+            viewsRef.child(data.safeId).child('users').child(USER_ID).once('value', snapshot => {
+                if (!snapshot.exists()) {
+                    viewsRef.child(data.safeId).child('users').child(USER_ID).set(true); 
+                    viewsRef.child(data.safeId).child('count').transaction(c => (c || 0) + 1);
+                }
+            });
+
+            document.getElementById('enlargedImage').src = data.url;
+            document.getElementById('enlargedImage').alt = data.safeId; 
+            document.getElementById('enlargedImageTitle').textContent = data.fullTitle;
             
             const fullIcon = document.querySelector('.like-icon-full');
-            likesRef.child(safeId).child('users').child(USER_ID).once('value', s => {
+            likesRef.child(data.safeId).child('users').child(USER_ID).once('value', s => {
                 if(s.val()) { fullIcon.classList.remove('far'); fullIcon.classList.add('fas'); }
                 else { fullIcon.classList.remove('fas'); fullIcon.classList.add('far'); }
             });
@@ -655,10 +743,16 @@
             document.getElementById('promptActionButtons').style.display = 'none';
             document.getElementById('bannerAdLink').style.display = 'none'; 
             document.getElementById('generatePromptButton').style.display = 'flex';
-            currentPromptText = prompt;
+            currentPromptText = data.prompt;
 
             document.body.classList.remove('gallery-active');
             document.body.classList.add('image-view-active');
+        }
+
+        function closeOverlayLogic() {
+            document.body.classList.remove('image-view-active');
+            document.body.classList.add('gallery-active');
+            history.pushState("", document.title, window.location.pathname + window.location.search);
         }
 
         function toggleLike(btnElement) {
@@ -666,35 +760,52 @@
             if(!safeId && document.body.classList.contains('image-view-active')) {
                 safeId = document.getElementById('enlargedImage').alt;
             }
-            likesRef.child(safeId).child('users').child(USER_ID).transaction(currentValue => {
-                if (currentValue) { return; } else { return true; }
-            }, (error, committed, snapshot) => {
-                if (committed) {
-                    likesRef.child(safeId).child('count').transaction(c => (c || 0) + 1);
-                    const cardIcon = document.querySelector(`.like-count[data-image-id="${safeId}"] .like-icon`);
-                    const fullIcon = document.querySelector('.like-icon-full');
-                    if(cardIcon) { cardIcon.classList.remove('far'); cardIcon.classList.add('fas'); }
-                    if(document.getElementById('enlargedImage').alt === safeId) {
-                         fullIcon.classList.remove('far'); fullIcon.classList.add('fas');
-                    }
+
+            const userLikeRef = likesRef.child(safeId).child('users').child(USER_ID);
+            const countRef = likesRef.child(safeId).child('count');
+
+            userLikeRef.once('value', snapshot => {
+                if (snapshot.exists()) {
+                    userLikeRef.remove();
+                    countRef.transaction(c => (c || 0) - 1);
+                    updateLikeUI(safeId, false);
+                } else {
+                    userLikeRef.set(true);
+                    countRef.transaction(c => (c || 0) + 1);
+                    updateLikeUI(safeId, true);
                 }
             });
         }
 
+        function updateLikeUI(safeId, isLiked) {
+            const cardIcon = document.querySelector(`.like-count[data-image-id="${safeId}"] .like-icon`);
+            if(cardIcon) {
+                if(isLiked) { cardIcon.classList.remove('far'); cardIcon.classList.add('fas'); }
+                else { cardIcon.classList.remove('fas'); cardIcon.classList.add('far'); }
+            }
+            if(document.getElementById('enlargedImage').alt === safeId) {
+                const fullIcon = document.querySelector('.like-icon-full');
+                if(isLiked) { fullIcon.classList.remove('far'); fullIcon.classList.add('fas'); }
+                else { fullIcon.classList.remove('fas'); fullIcon.classList.add('far'); }
+            }
+        }
+
         document.getElementById('likeImageViewBtn').addEventListener('click', function() { toggleLike(this); });
+        
         document.getElementById('closeImageViewBtn').addEventListener('click', () => {
-             document.body.classList.remove('image-view-active');
-             document.body.classList.add('gallery-active');
+             if(window.location.hash) {
+                 window.history.back(); 
+             } else {
+                 closeOverlayLogic();
+             }
         });
 
-        // 🔥 PERCENTAGE LOADING LOGIC & AD TRIGGER
         document.getElementById('generatePromptButton').addEventListener('click', function() {
             this.style.display = 'none';
             const loader = document.getElementById('loadingContainer');
             const percentageText = document.getElementById('loadingPercentage');
             loader.style.display = 'flex';
             
-            // 🔥 TRIGGER AD IMMEDIATELY HERE
             showRandomAd(); 
             
             let count = 0;
