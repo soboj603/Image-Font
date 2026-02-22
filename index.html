@@ -11,7 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     
     <style>
-        /* ✨ HIGH-QUALITY COLOR PALETTE */
+        /* ✨ COLOR PALETTE */
         :root {
             --primary-color: #4a90e2;        
             --secondary-color: #9c27b0;      
@@ -56,7 +56,8 @@
         input, textarea, .result-box { -webkit-user-select: text; user-select: text; }
 
         body {
-            width: 100%; min-height: 100vh;
+            width: 100%; 
+            min-height: 100vh; min-height: 100dvh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-color); padding: 0;  
             background: linear-gradient(135deg, #1f2833 0%, #171c26 100%);
@@ -65,15 +66,17 @@
         .light-mode body { background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); }
         
         .all-bar {
-            width: 100%; max-width: 400px; height: 100vh;  
+            width: 100%; max-width: 400px; 
+            height: 100vh; height: 100dvh; 
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             background-color: var(--bg-dark); 
             display: flex; flex-direction: column; margin: 0 auto; position: relative;
         }
 
-        /* HEADER */
+        /* HEADER (Standard Size) */
         .heading-bar {  
-            width: 100%; height: 60px; background-color: var(--card-dark);
+            width: 100%; height: 60px; /* Restored to standard */
+            background-color: var(--card-dark);
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 15px; border-bottom: 1px solid var(--header-border-color);  
             flex-shrink: 0; position: sticky; top: 0; z-index: 1000;
@@ -83,7 +86,7 @@
         
         .search-container { flex-grow: 1; max-width: 200px; height: 40px; margin: 0 15px; }
         
-        /* 🔥 SEARCH INPUT STYLE (Focus Glow) */
+        /* SEARCH INPUT */
         .search-container input {
             width: 100%; height: 100%; border-radius: 20px;
             border: 1px solid var(--header-border-color); padding: 0 15px;    
@@ -92,7 +95,7 @@
         }
         .search-container input:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 8px rgba(74, 144, 226, 0.5); /* Glow Effect */
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.5); 
         }
 
         .image-view-active .search-container { opacity: 0; pointer-events: none; }
@@ -115,7 +118,12 @@
         }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
         
-        .image-card { position: relative; width: 100%; height: 170px; overflow: hidden; }
+        /* 🔥 IMAGE CARD (Restored to Standard Size) */
+        .image-card { 
+            position: relative; width: 100%; 
+            height: 170px; /* Restored from 140px */
+            overflow: hidden; 
+        }
         .image-card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
         
         .view-count, .like-count {
@@ -139,33 +147,43 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* FOOTER */
+        /* 🔥 FOOTER (Optimized Height only, not smaller text) */
         .footer-main {
-            width: 100%; padding: 10px; display: flex; flex-direction: column;  
+            width: 100%; 
+            padding: 10px 5px; /* Less vertical padding */
+            display: flex; flex-direction: column;  
             align-items: center; justify-content: center; background-color: var(--footer-bg);  
             border-top: 1px solid var(--header-border-color); flex-shrink: 0;
             border-radius: 15px 15px 0 0; margin-top: auto; text-align: center;
         }
         .image-view-active .footer-main { display: none; }
 
+        /* Tighter margins for compact look without shrinking text */
+        .developed-by-line { margin: 5px 0; font-size: 0.95rem; }
         .developer-name { color: var(--primary-color); font-weight: bold; cursor: pointer; text-decoration: none; }
-        .social-icons { display: flex; gap: 30px; margin-bottom: 10px; margin-top: 10px; }
+        
+        .social-icons { display: flex; gap: 25px; margin: 5px 0; }
         .social-icon { width: 35px; height: 35px; display: block; transition: transform 0.2s; }
         .social-icon:hover { transform: scale(1.1); }
         .social-image { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+        
         .policy-terms-line { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin: 5px 0; }
-        .copyright-text { font-size: 0.8rem; color: var(--text-color); opacity: 0.5; }
+        .copyright-text { font-size: 0.8rem; color: var(--text-color); opacity: 0.5; margin-bottom: 5px; }
         
         /* FULL VIEW */
         .full-image-view {
             display: none; width: 100%; flex-grow: 1; flex-direction: column;
-            background-color: var(--bg-dark); height: calc(100vh - 60px); overflow-y: hidden;  
+            background-color: var(--bg-dark); 
+            height: calc(100vh - 60px); height: calc(100dvh - 60px);
+            overflow-y: hidden;  
         }
         .image-view-active .full-image-view { display: flex; }
         
         .image-display-container {
             flex-grow: 1; width: 100%; display: flex; flex-direction: column;
-            align-items: center; padding-top: 20px; background-color: var(--bg-dark);
+            align-items: center; 
+            padding-top: 20px; 
+            background-color: var(--bg-dark);
             overflow: hidden; z-index: 999; position: relative;
         }
         
@@ -182,10 +200,16 @@
         #closeImageViewBtn { border-bottom: 2px solid #B468C4; }
         
         #imageWrapper {
-            position: relative; max-width: 100%; max-height: 40vh; height: auto;
-            margin-bottom: 10px; margin-top: -18px; display: flex; justify-content: center; flex-shrink: 0;
+            position: relative; max-width: 100%; 
+            max-height: 40vh; /* Restored to standard */
+            height: auto;
+            margin-bottom: 10px; margin-top: -18px; 
+            display: flex; justify-content: center; flex-shrink: 0;
         }
-        .image-display-container img { max-width: 100%; max-height: 40vh; height: auto; object-fit: contain; pointer-events: none; }
+        .image-display-container img { 
+            max-width: 100%; max-height: 40vh; height: auto; 
+            object-fit: contain; pointer-events: none; 
+        }
         
         .like-in-image-corner {
             position: absolute; bottom: 10px; right: 10px; width: 35px; height: 35px;
@@ -196,7 +220,9 @@
 
         .image-details-overlay {
             width: 100%; flex-grow: 1; display: flex; flex-direction: column;
-            align-items: center; padding: 5px 15px; background: var(--card-dark);
+            align-items: center; 
+            padding: 5px 15px; 
+            background: var(--card-dark);
             border-radius: 20px 20px 0 0; text-align: center; z-index: 1000;
             margin-top: -10px; border-top: 2px solid #B468C4; overflow-y: auto; 
         }
@@ -208,16 +234,18 @@
         }
 
         .generate-btn {
-            width: 220px; padding: 14px; border: none; border-radius: 15px;
+            width: 220px; padding: 14px; /* Restored size */
+            border: none; border-radius: 15px;
             background-image: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
             color: white; font-size: 1.1rem; font-weight: bold; cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); display: flex; align-items: center;
             justify-content: center; gap: 10px; margin-bottom: 10px;
         }
         
-        /* 🔥 PERCENTAGE LOADING */
+        /* PERCENTAGE LOADING */
         .loading-container { 
-            display: none; width: 70px; height: 70px; margin: 20px auto 10px auto; position: relative; 
+            display: none; width: 70px; height: 70px; /* Restored size */
+            margin: 20px auto 10px auto; position: relative; 
         }
         .loading-circle {
             width: 100%; height: 100%; border-radius: 50%; border: 6px solid rgba(255, 255, 255, 0.1);
@@ -241,16 +269,20 @@
         .result-box {
             padding: 10px; margin: 0 auto 10px auto; background-color: var(--result-box-bg);
             color: var(--text-color); border-radius: 8px; font-size: 0.95rem; line-height: 1.6;
-            border: 1px solid var(--result-box-border); width: 100%; height: 120px;
+            border: 1px solid var(--result-box-border); 
+            width: 100%; 
+            height: 120px; /* Restored Height */
             overflow-y: auto; text-align: left; white-space: pre-wrap; 
         }
         
-        /* 🔥 BUTTONS */
+        /* 🔥 BUTTONS (Restored Size) */
         #promptActionButtons { 
             display: flex; justify-content: space-between; gap: 8px; width: 100%; margin-bottom: 10px; 
         }
         .copy-button, .gemini-button, .chatgpt-button {
-            flex: 1; height: 38px; padding: 0 8px; border: none; border-radius: 8px;
+            flex: 1; 
+            height: 38px; /* Restored Height */
+            padding: 0 8px; border: none; border-radius: 8px;
             color: white; font-size: 0.85rem; font-weight: 600; cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap;
         }
@@ -353,14 +385,6 @@
             <p class="copyright-text" id="footerCopyright">© 2025 Ads to Earning. All Rights Reserved</p>
         </div>
     </div>
-
-    <!-- 
-    👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
-    🔥 PLACE YOUR MONETAG SCRIPT HERE (For Ads) 🔥
-    👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
-    Example:
-    <script src="https://alwingulla.com/88/tag.min.js" data-zone="123456" async data-cfasync="false"></script> 
-    -->
 
     <script>
         // 🔥 Firebase Config
@@ -622,12 +646,11 @@
             type();
         }
 
-        // 🔥 INSTANT COPY (NO TIMER, NO FORCED DIRECT LINK)
+        // 🔥 INSTANT COPY
         document.getElementById('copyButton').addEventListener('click', () => {
             const btn = document.getElementById('copyButton');
             const originalText = '<i class="fas fa-copy"></i> Copy';
 
-            // Just copy immediately
             navigator.clipboard.writeText(document.getElementById('resultBox').innerText)
                 .then(() => {
                     btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
@@ -636,8 +659,6 @@
                 .catch(err => {
                     console.error('Failed to copy', err);
                 });
-            
-            // NOTE: The Monetag Ad script in the HTML body will handle the click automatically.
         });
         
         document.getElementById('geminiButton').addEventListener('click', () => {
