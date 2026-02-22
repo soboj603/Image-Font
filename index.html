@@ -125,30 +125,20 @@
             width: 100%; 
         }
 
-        /* 🔥 CONTINUOUS ANIMATION CSS */
+        /* CONTINUOUS ANIMATION CSS */
         .image-card-wrapper {
             text-align: center; background-color: var(--card-dark);
             border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px var(--shadow-color);
             align-self: start; display: none; 
             cursor: pointer; position: relative;
-            
-            /* Initial State (Hidden) */
             opacity: 0;
             transform: translateY(40px) scale(0.9);
             transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Visible State (Shown) */
-        .image-card-wrapper.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+        .image-card-wrapper.visible { opacity: 1; transform: translateY(0) scale(1); }
         
-        .image-card { 
-            position: relative; width: 100%; 
-            height: 170px; 
-            overflow: hidden; 
-        }
+        .image-card { position: relative; width: 100%; height: 170px; overflow: hidden; }
         .image-card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
         
         .view-count, .like-count {
@@ -164,10 +154,7 @@
             width: 100%; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;  
         }
         
-        .more-container { 
-            padding: 15px 0 20px 0; 
-            display: flex; justify-content: center; width: 100%; background-color: transparent; 
-        }
+        .more-container { padding: 15px 0 20px 0; display: flex; justify-content: center; width: 100%; background-color: transparent; }
         .more-btn {
             padding: 10px 22px; border: none; border-radius: 25px;
             background-image: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
@@ -175,33 +162,20 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* 🔥 FOOTER & ICONS */
+        /* FOOTER & ICONS */
         .footer-main {
-            width: 100%; 
-            padding: 15px 5px; 
-            display: flex; flex-direction: column;  
-            align-items: center; justify-content: center; 
-            background-color: var(--footer-bg);  
-            border-top: 1px solid var(--header-border-color); 
-            flex-shrink: 0; 
-            border-radius: 16px 16px 0 0; 
-            z-index: 1001;
-            gap: 12px;
+            width: 100%; padding: 15px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            background-color: var(--footer-bg); border-top: 1px solid var(--header-border-color); 
+            flex-shrink: 0; border-radius: 16px 16px 0 0; z-index: 1001; gap: 12px;
         }
         .image-view-active .footer-main { display: none; }
         
-        .social-icons { 
-            display: flex; 
-            gap: 20px; 
-            margin: 2px 0; 
-            justify-content: center;
-        }
-
+        .social-icons { display: flex; gap: 20px; margin: 2px 0; justify-content: center; }
         .social-icon { width: 28px; height: 28px; display: block; transition: transform 0.2s; }
         .social-icon:hover { transform: scale(1.1); }
         .social-image { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
         
-        /* 🔥 ICON COLOR FIX */
+        /* ICON COLOR FIX */
         .tiktok-filter { filter: invert(1); }
         .light-mode .tiktok-filter { filter: invert(0); }
         
@@ -209,21 +183,19 @@
         .copyright-text { font-size: 0.7rem; color: var(--text-color); opacity: 0.5; margin: 0; }
         .separator { margin: 0 4px; opacity: 0.4; }
         
-        /* FULL VIEW */
+        /* FULL VIEW - FIXED LAYOUT */
         .full-image-view {
             display: none; width: 100%; flex-grow: 1; flex-direction: column;
-            background-color: var(--bg-dark); 
-            height: calc(100vh - 50px); 
-            overflow-y: hidden;  
+            background-color: var(--bg-dark); height: calc(100vh - 50px); 
+            overflow: hidden; 
         }
         .image-view-active .full-image-view { display: flex; }
         
         .image-display-container {
             flex-grow: 1; width: 100%; display: flex; flex-direction: column;
-            align-items: center; 
-            padding-top: 20px; 
-            background-color: var(--bg-dark);
+            align-items: center; padding-top: 10px; background-color: var(--bg-dark);
             overflow: hidden; z-index: 999; position: relative;
+            justify-content: flex-start; 
         }
         
         .image-view-action-bar {
@@ -238,15 +210,19 @@
         }
         #closeImageViewBtn { border-bottom: 2px solid #B468C4; }
         
+        /* FLEXIBLE IMAGE WRAPPER */
         #imageWrapper {
-            position: relative; max-width: 100%; 
-            max-height: 40vh; 
-            height: auto;
-            margin-bottom: 10px; margin-top: -18px; 
-            display: flex; justify-content: center; flex-shrink: 0;
+            position: relative; 
+            max-width: 100%; 
+            max-height: 35vh; 
+            height: auto; 
+            margin-bottom: 5px; margin-top: 0; 
+            display: flex; justify-content: center; 
+            flex-shrink: 1; 
+            min-height: 0;
         }
         .image-display-container img { 
-            max-width: 100%; max-height: 40vh; height: auto; 
+            max-width: 100%; max-height: 100%; height: auto; 
             object-fit: contain; pointer-events: none; 
         }
         
@@ -257,83 +233,86 @@
         }
         .like-icon-full.fas { color: red !important; }
 
+        /* MODIFIED OVERLAY */
         .image-details-overlay {
-            width: 100%; flex-grow: 1; display: flex; flex-direction: column;
+            width: 100%; 
+            flex-grow: 1; 
+            display: flex; flex-direction: column;
             align-items: center; 
-            padding: 5px 15px; 
+            padding: 10px 15px; 
             background: var(--card-dark);
             border-radius: 20px 20px 0 0; text-align: center; z-index: 1000;
-            margin-top: -10px; border-top: 2px solid #B468C4; overflow-y: auto; 
-            padding-bottom: 30px; 
+            margin-top: 0; border-top: 2px solid #B468C4; 
+            overflow: hidden; 
         }
 
         .image-title-view {
-            font-size: 1.0rem; font-weight: 600; color: var(--text-color);
-            margin-bottom: 5px; width: 100%; border-bottom: 2px solid transparent;
-            border-image: linear-gradient(to right, transparent, #B468C4, transparent) 1; padding-bottom: 10px;
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            color: #ffffff; 
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.9); 
+            margin-bottom: 8px; 
+            width: 100%; 
+            border-bottom: 2px solid transparent;
+            border-image: linear-gradient(to right, transparent, #B468C4, transparent) 1; 
+            padding-bottom: 8px; 
+            white-space: normal; 
+            line-height: 1.3;
+            overflow: visible; 
+            text-overflow: clip;
+            flex-shrink: 0;
         }
 
         .generate-btn {
-            width: 220px; padding: 14px; 
-            border: none; border-radius: 15px;
+            width: 100%; max-width: 250px; padding: 12px; 
+            border: none; border-radius: 12px;
             background-image: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-            color: white; font-size: 1.1rem; font-weight: bold; cursor: pointer;
+            color: white; font-size: 1rem; font-weight: bold; cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); display: flex; align-items: center;
-            justify-content: center; gap: 10px; margin-bottom: 10px;
+            justify-content: center; gap: 8px; margin-bottom: 8px;
+            flex-shrink: 0;
         }
         
-        .loading-container { 
-            display: none; width: 70px; height: 70px; 
-            margin: 20px auto 10px auto; position: relative; 
-        }
-        .loading-circle {
-            width: 100%; height: 100%; border-radius: 50%; border: 6px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .loading-arc {
-            position: absolute; top: -6px; left: -6px; width: calc(100% + 12px); height: calc(100% + 12px);
-            border-radius: 50%; border: 6px solid transparent; border-top-color: var(--primary-color);
-            border-right-color: var(--primary-color); animation: spin 1.5s linear infinite; 
-        }
-        #loadingPercentage {
-            font-size: 1.1rem; font-weight: bold; color: var(--text-color); z-index: 10;
-        }
+        .loading-container { display: none; width: 60px; height: 60px; margin: 10px auto; position: relative; }
+        .loading-circle { width: 100%; height: 100%; border-radius: 50%; border: 6px solid rgba(255, 255, 255, 0.1); position: relative; display: flex; align-items: center; justify-content: center; }
+        .loading-arc { position: absolute; top: -6px; left: -6px; width: calc(100% + 12px); height: calc(100% + 12px); border-radius: 50%; border: 6px solid transparent; border-top-color: var(--primary-color); border-right-color: var(--primary-color); animation: spin 1.5s linear infinite; }
+        #loadingPercentage { font-size: 1rem; font-weight: bold; color: var(--text-color); z-index: 10; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        .result-container {
-            display: flex; flex-direction: column; align-items: center;
-            margin-top: 5px; min-height: 130px; width: 100%;
+        .result-container { 
+            display: flex; flex-direction: column; align-items: center; 
+            margin-top: 5px; width: 100%; flex-shrink: 1; min-height: 0;
         }
+        
         .result-box {
-            padding: 10px; margin: 0 auto 10px auto; background-color: var(--result-box-bg);
-            color: var(--text-color); border-radius: 8px; font-size: 0.95rem; line-height: 1.6;
+            padding: 8px; margin: 0 auto 8px auto; background-color: var(--result-box-bg);
+            color: var(--text-color); border-radius: 8px; font-size: 0.9rem; line-height: 1.5;
             border: 1px solid var(--result-box-border); 
             width: 100%; 
-            height: 120px; 
+            height: 110px; 
             overflow-y: auto; text-align: left; white-space: pre-wrap; 
+            flex-shrink: 0;
         }
         
         #promptActionButtons { 
-            display: flex; justify-content: space-between; gap: 8px; width: 100%; margin-bottom: 10px; 
+            display: flex; justify-content: space-between; gap: 5px; width: 100%; margin-bottom: 5px; 
+            flex-shrink: 0;
         }
         .copy-button, .gemini-button, .chatgpt-button {
-            flex: 1; 
-            height: 38px; 
-            padding: 0 8px; border: none; border-radius: 8px;
-            color: white; font-size: 0.85rem; font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 6px; white-space: nowrap;
+            flex: 1; height: 35px; padding: 0 5px; border: none; border-radius: 8px;
+            color: white; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 4px; white-space: nowrap;
         }
         .copy-button { background-color: var(--copy-btn-bg); }
         .gemini-button { background-color: var(--gemini-color); }
         .chatgpt-button { background-color: var(--chatgpt-color); }
         
-        .btn-logo-img { height: 18px; width: 18px; object-fit: contain; pointer-events: none; display: block; }
+        .btn-logo-img { height: 16px; width: 16px; object-fit: contain; pointer-events: none; display: block; }
 
-        /* 🔥 PREMIUM BANNER AD CONTAINER (Video & Image Support) */
+        /* 🔥 BANNER AD CSS FIXED (Full Width & Filled) */
         .banner-ad-container {
             width: 100%;
-            height: 160px; /* FIXED HEIGHT */
+            height: 110px; /* FIXED HEIGHT */
             margin-top: 15px;
             border-radius: 12px;
             overflow: hidden;
@@ -344,14 +323,16 @@
             background: #000;
         }
         
-        /* Ensures both Video and Image fill the container perfectly */
+        /* Forces image to stretch exactly to container size */
         .banner-ad-media {
-            width: 100%;
+            
+            width: 1100%;
             height: 100%;
             object-fit: cover; /* This makes it fill the container, cropping if needed */
             display: block;
             border: none;
             pointer-events: none; /* Prevents clicking video controls */
+            
         }
 
         .ad-label {
@@ -363,16 +344,8 @@
         }
 
         /* PRELOADER */
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000000; z-index: 2000; display: flex;
-            flex-direction: column; align-items: center; justify-content: center; 
-        }
-        .loading-spinner {
-            width: 50px; height: 50px; border: 5px solid #333;
-            border-top: 5px solid var(--primary-color); border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .loading-spinner { width: 50px; height: 50px; border: 5px solid #333; border-top: 5px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; }
     </style>
 </head>
 <body class="gallery-active"> 
@@ -437,16 +410,16 @@
                                 <img src="https://i.ibb.co.com/GfGtxCF2/2026022219385290.png" alt="C" class="btn-logo-img"> ChatGPT
                             </button>
                         </div>
-                        
-                        <!-- 🔥 DYNAMIC BANNER AD (Video/Image) -->
-                        <a id="bannerAdLink" href="#" target="_blank" class="banner-ad-container">
-                            <span class="ad-label">AD</span>
-                            <div id="adMediaContainer" style="width:100%; height:100%;">
-                                <!-- Media inject here -->
-                            </div>
-                        </a>
-
                     </div>
+
+                    <!-- 🔥 FIXED BANNER AD (Video/Image) -->
+                    <a id="bannerAdLink" href="#" target="_blank" class="banner-ad-container">
+                        <span class="ad-label">AD</span>
+                        <div id="adMediaContainer" style="width:100%; height:100%;">
+                            <!-- Dynamic Media -->
+                        </div>
+                    </a>
+
                 </div>
             </div>
         </div>
@@ -509,7 +482,7 @@
         }
         fetchBannerAds();
 
-        // 🔥 SHOW RANDOM AD (UPDATED FOR VIDEO)
+        // 🔥 SHOW RANDOM AD
         function showRandomAd() {
             const containerLink = document.getElementById('bannerAdLink');
             const mediaBox = document.getElementById('adMediaContainer');
@@ -517,23 +490,19 @@
             if (allBannerAds.length > 0) {
                 const randomAd = allBannerAds[Math.floor(Math.random() * allBannerAds.length)];
                 
-                // Set Link
                 containerLink.href = randomAd.targetUrl;
                 
-                // Set Media Content based on Type
                 if (randomAd.type === 'video') {
-                    // It's a Video: Add Autoplay, Muted, Loop, PlaysInline (for mobile)
                     mediaBox.innerHTML = `
                         <video class="banner-ad-media" autoplay loop muted playsinline>
                             <source src="${randomAd.url}" type="video/mp4">
                         </video>
                     `;
                 } else {
-                    // It's an Image
                     mediaBox.innerHTML = `<img src="${randomAd.url}" class="banner-ad-media">`;
                 }
                 
-                containerLink.style.display = 'block';
+                containerLink.style.display = 'flex'; // Changed to Flex to support centering/filling
             } else {
                 containerLink.style.display = 'none';
             }
@@ -684,7 +653,7 @@
 
             document.getElementById('resultContainer').style.display = 'none';
             document.getElementById('promptActionButtons').style.display = 'none';
-            document.getElementById('bannerAdLink').style.display = 'none'; // Hide AD initially
+            document.getElementById('bannerAdLink').style.display = 'none'; 
             document.getElementById('generatePromptButton').style.display = 'flex';
             currentPromptText = prompt;
 
@@ -725,6 +694,9 @@
             const percentageText = document.getElementById('loadingPercentage');
             loader.style.display = 'flex';
             
+            // 🔥 TRIGGER AD IMMEDIATELY HERE
+            showRandomAd(); 
+            
             let count = 0;
             percentageText.innerText = "0%";
             
@@ -739,10 +711,6 @@
                         loader.style.display = 'none';
                         document.getElementById('resultContainer').style.display = 'flex';
                         startTyping();
-                        
-                        // 🔥 TRIGGER AD HERE (Instantly when result shows)
-                        showRandomAd();
-                        
                     }, 300);
                 }
             }, 30);
