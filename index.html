@@ -55,7 +55,9 @@
             -webkit-user-select: none; user-select: none;
             touch-action: pan-x pan-y;
         }
-        input, textarea, .result-box { -webkit-user-select: text; user-select: text; }
+        
+        /* Only input and textarea allow text selection */
+        input, textarea { -webkit-user-select: text; user-select: text; }
 
         body {
             width: 100%; 
@@ -295,6 +297,13 @@
             height: 110px; 
             overflow-y: auto; text-align: left; white-space: pre-wrap; 
             flex-shrink: 0;
+            
+            /* DISABLED TEXT SELECTION */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: default;
         }
         
         #promptActionButtons { 
@@ -312,35 +321,130 @@
         
         .btn-logo-img { height: 16px; width: 16px; object-fit: contain; pointer-events: none; display: block; }
 
-        /* BANNER AD CSS (VIDEO REMOVED) */
+        /* 🔥🔥 ULTRA-PREMIUM CRYSTAL AD CSS 🔥🔥 */
         .banner-ad-container {
             width: 100%;
             height: 110px;
             margin-top: 15px;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            display: none;
+            /* Deep, premium shadow */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            display: none; 
             cursor: pointer;
             position: relative;
-            background: #000;
+            background: #101018; 
+            text-decoration: none;
         }
         
-        .banner-ad-media {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            border: none;
+        /* 🔥 CRYSTAL SHINE EFFECT (Improved) */
+        .banner-ad-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 80%; height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.1) 20%,
+                rgba(255, 255, 255, 0.6) 50%, /* Bright Crystal Core */
+                rgba(255, 255, 255, 0.1) 80%,
+                transparent
+            );
+            transform: skewX(-25deg);
+            z-index: 10;
             pointer-events: none;
+            animation: crystalShine 3s infinite;
         }
 
-        .ad-label {
-            position: absolute; top: 5px; right: 5px;
-            background: rgba(0,0,0,0.6); color: white;
-            font-size: 9px; padding: 2px 6px; border-radius: 4px;
-            z-index: 10; font-weight: bold; letter-spacing: 1px;
-            border: 1px solid rgba(255,255,255,0.2);
+        @keyframes crystalShine {
+            0% { left: -100%; opacity: 0; }
+            40% { opacity: 1; }
+            100% { left: 200%; opacity: 0; }
+        }
+
+        .ad-media-wrapper {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        .banner-ad-media {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border: none; pointer-events: none;
+        }
+
+        /* FROSTED GLASS OVERLAY (Apple-style blur) */
+        .ad-overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: rgba(20, 20, 30, 0.6); 
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            padding: 8px 12px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255,255,255,0.15); /* Glass edge */
+        }
+
+        .ad-badge {
+            position: absolute; top: 10px; left: 10px;
+            background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%); /* Gold */
+            color: #222;
+            font-size: 9px; padding: 3px 8px; border-radius: 20px;
+            z-index: 10; font-weight: 900; letter-spacing: 0.5px;
+            box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .ad-text-info {
+            display: flex; flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .ad-title-text {
+            color: #fff; font-size: 0.95rem; font-weight: 700;
+            line-height: 1.1; margin-bottom: 2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .ad-desc-text {
+            color: rgba(255, 255, 255, 0.7); 
+            font-size: 0.75rem; 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        /* NEON BUTTON */
+        .ad-cta-btn {
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+            display: flex; align-items: center; gap: 6px;
+            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.4);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s;
+            animation: pulseBtn 2s infinite ease-in-out;
+        }
+        
+        .ad-cta-btn:active { transform: scale(0.95); }
+
+        @keyframes pulseBtn {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 117, 252, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(37, 117, 252, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 117, 252, 0); }
         }
 
         /* MODERN HIGH-QUALITY PRELOADER */
@@ -415,7 +519,7 @@
         <!-- HEADER -->
         <div class="heading-bar">
             <div class="logo-container-left">
-                <img id="siteLogo" src="https://via.placeholder.com/50" alt="Logo">  
+                <img id="siteLogo" src="https://i.ibb.co.com/HQ4ZF5T/2026022310073531.png" alt="Logo">  
             </div>
             <div class="search-container">
                 <input type="text" placeholder="Search prompts..!">
@@ -455,6 +559,7 @@
                     </div>
 
                     <div class="result-container" id="resultContainer" style="display: none;">
+                        <!-- RESULT BOX (Selection disabled) -->
                         <div class="result-box" id="resultBox"></div>
                         
                         <div id="promptActionButtons">
@@ -468,9 +573,9 @@
                         </div>
                     </div>
 
+                    <!-- 🔥 ULTRA PREMIUM AD CONTAINER 🔥 -->
                     <a id="bannerAdLink" href="#" target="_blank" class="banner-ad-container">
-                        <span class="ad-label">AD</span>
-                        <div id="adMediaContainer" style="width:100%; height:100%;"></div>
+                        <!-- Content will be injected by JS -->
                     </a>
 
                 </div>
@@ -520,7 +625,7 @@
             localStorage.setItem('unique_uid', USER_ID);
         }
 
-        // 🔥🔥 ADS CYCLE LOGIC (VIDEO REMOVED) 🔥🔥
+        // 🔥🔥 ADS CYCLE LOGIC (SMART NATIVE ADS) 🔥🔥
         let allBannerAds = [];
         let availableAds = []; 
 
@@ -540,7 +645,6 @@
 
         function showRandomAd() {
             const containerLink = document.getElementById('bannerAdLink');
-            const mediaBox = document.getElementById('adMediaContainer');
             
             if (allBannerAds.length === 0) {
                 containerLink.style.display = 'none';
@@ -553,15 +657,61 @@
 
             const randomIndex = Math.floor(Math.random() * availableAds.length);
             const selectedAd = availableAds[randomIndex];
-            
             availableAds.splice(randomIndex, 1);
 
+            // 🔥 LOGIC TO DETECT AD TYPE & BUTTON TEXT
+            let ctaText = "Visit Site";
+            let ctaIcon = "fa-external-link-alt";
+            let adTitleText = "Sponsored";
+            const target = selectedAd.targetUrl.toLowerCase();
+            const type = selectedAd.type || 'image';
+
+            if (type === 'video' || target.includes('youtube.com') || target.includes('youtu.be')) {
+                ctaText = "Watch Now";
+                ctaIcon = "fa-play";
+                adTitleText = "Must Watch!";
+            } else if (target.includes('play.google.com') || target.includes('apps.apple.com')) {
+                ctaText = "Install";
+                ctaIcon = "fa-download";
+                adTitleText = "App Suggestion";
+            } else if (target.includes('t.me')) {
+                ctaText = "Join Channel";
+                ctaIcon = "fa-paper-plane";
+                adTitleText = "Telegram";
+            } else if (target.includes('facebook.com')) {
+                ctaText = "Follow";
+                ctaIcon = "fa-thumbs-up";
+                adTitleText = "Facebook";
+            } else if (target.includes('daraz') || target.includes('amazon') || target.includes('shop')) {
+                ctaText = "Shop Now";
+                ctaIcon = "fa-shopping-cart";
+                adTitleText = "Best Deals";
+            }
+
+            // 🔥 BUILD THE NATIVE AD HTML
+            let mediaHtml = '';
+            if (type === 'video') {
+                mediaHtml = `<video class="banner-ad-media" autoplay loop muted playsinline><source src="${selectedAd.url}" type="video/mp4"></video>`;
+            } else {
+                mediaHtml = `<img src="${selectedAd.url}" class="banner-ad-media" alt="Ad">`;
+            }
+
             containerLink.href = selectedAd.targetUrl;
+            containerLink.innerHTML = `
+                <div class="ad-media-wrapper">${mediaHtml}</div>
+                <span class="ad-badge">Ad</span>
+                <div class="ad-overlay">
+                    <div class="ad-text-info">
+                        <span class="ad-title-text">${adTitleText}</span>
+                        <span class="ad-desc-text">Tap here to view more details</span>
+                    </div>
+                    <button class="ad-cta-btn">
+                        ${ctaText} <i class="fas ${ctaIcon}"></i>
+                    </button>
+                </div>
+            `;
             
-            // Only Show Image/GIF
-            mediaBox.innerHTML = `<img src="${selectedAd.url}" class="banner-ad-media">`;
-            
-            containerLink.style.display = 'flex'; 
+            containerLink.style.display = 'block'; 
         }
 
         const scrollObserver = new IntersectionObserver((entries) => {
@@ -571,15 +721,24 @@
             });
         }, { threshold: 0.15 });
 
+        // ✅✅ IMPROVED SITE SETTINGS (FIXES LOGO ISSUE) ✅✅
         function fetchSiteSettings() {
             db.ref('site_settings').on('value', snapshot => {
                 const data = snapshot.val();
                 if (data) {
-                    if(data.logoUrl) document.getElementById('siteLogo').src = data.logoUrl;
-                    document.getElementById('footerTiktokLink').href = data.tiktokLink || "#";
-                    document.getElementById('footerFbLink').href = data.fbLink || "#";
-                    document.getElementById('footerTelegramLink').href = data.tgLink || "#";
-                    document.getElementById('footerYoutubeLink').href = data.youtubeLink || "#";
+                    // Smartly checks for multiple possible key names for Logo
+                    const logo = data.logoUrl || data.logo || data.siteLogo || data.url || data.image;
+                    if(logo) {
+                        const logoEl = document.getElementById('siteLogo');
+                        if(logoEl.src !== logo) logoEl.src = logo;
+                    }
+
+                    // Checks for multiple key names for Social Links
+                    document.getElementById('footerTiktokLink').href = data.tiktokLink || data.tiktok || "#";
+                    document.getElementById('footerFbLink').href = data.fbLink || data.facebook || "#";
+                    document.getElementById('footerTelegramLink').href = data.tgLink || data.telegram || "#";
+                    document.getElementById('footerYoutubeLink').href = data.youtubeLink || data.youtube || "#";
+                    
                     if(data.footerText) document.getElementById('footerCopyright').textContent = data.footerText;
                 }
             });
@@ -619,26 +778,33 @@
                             preloader.style.opacity = '0';
                             setTimeout(() => preloader.style.display = 'none', 500);
                         }, 800);
+                        
+                        // 🔥 CHECK FOR HASH AFTER LOADING DATA TO RESTORE STATE
                         checkUrlAndRestoreState();
                     }
                 });
             });
         }
 
+        // ✅ URL HASH MANAGED HERE: Restore state on reload/back
         function checkUrlAndRestoreState() {
             const hash = window.location.hash.substring(1); 
             if(hash && allFetchedImages.length > 0) {
                 const imgData = allFetchedImages.find(img => img.safeId === hash);
                 if(imgData) {
-                    populateAndOpenOverlay(imgData);
+                    // Manually populate without pushing state again
+                    populateAndOpenOverlay(imgData, false);
                 }
             }
         }
 
+        // ✅ HANDLE BROWSER BACK BUTTON
         window.addEventListener('popstate', function(event) {
             if(!window.location.hash) {
+                // If hash is gone, close overlay
                 closeOverlayLogic();
             } else {
+                // If hash changed (e.g. forward button), restore
                 checkUrlAndRestoreState();
             }
         });
@@ -720,12 +886,15 @@
                 fullTitle: fullTitle,
                 prompt: prompt
             };
-            populateAndOpenOverlay(imgData);
+            populateAndOpenOverlay(imgData, true);
         }
 
-        function populateAndOpenOverlay(data) {
-            if(window.location.hash.substring(1) !== data.safeId) {
-                window.location.hash = data.safeId;
+        // ✅ MODIFIED: Added pushState logic
+        function populateAndOpenOverlay(data, shouldPushState = true) {
+            
+            // Push to history so URL changes to #image_id
+            if (shouldPushState && window.location.hash.substring(1) !== data.safeId) {
+                history.pushState({ modalOpen: true, id: data.safeId }, "", "#" + data.safeId);
             }
 
             viewsRef.child(data.safeId).child('users').child(USER_ID).once('value', snapshot => {
@@ -758,7 +927,11 @@
         function closeOverlayLogic() {
             document.body.classList.remove('image-view-active');
             document.body.classList.add('gallery-active');
-            history.pushState("", document.title, window.location.pathname + window.location.search);
+            
+            // Clean URL without reloading if needed
+            if(window.location.hash) {
+                 history.pushState("", document.title, window.location.pathname + window.location.search);
+            }
         }
 
         function toggleLike(btnElement) {
@@ -798,6 +971,7 @@
 
         document.getElementById('likeImageViewBtn').addEventListener('click', function() { toggleLike(this); });
         
+        // ✅ CLOSE BUTTON uses history.back()
         document.getElementById('closeImageViewBtn').addEventListener('click', () => {
              if(window.location.hash) {
                  window.history.back(); 
