@@ -17,22 +17,22 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-        /* 🔥 GLOBAL RESET */
+        
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
         
-        /* 🔥🔥 MOBILE VIEWPORT FIX 🔥🔥 */
+        
         body { 
             font-family: 'Poppins', sans-serif; 
             background-color: #050505; 
             color: #ffffff; 
             height: 100vh; 
-            height: 100dvh; /* মোবাইলের জন্য ডায়নামিক হাইট */
-            overflow: hidden; /* বডি স্ক্রল হবে না */
-            display: flex; 
-            flex-direction: column; 
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* 🔥 CUSTOM TOAST NOTIFICATION */
+        
         #customToast {
             position: fixed; top: 20px; right: 20px; background: rgba(20, 20, 20, 0.95);
             border: 1px solid #00ff88; color: #00ff88; padding: 10px 20px;
@@ -43,7 +43,7 @@
         }
         #customToast.active { transform: translateX(0); opacity: 1; }
 
-        /* 🔥 ADMIN PRELOADER (With Logo Support) */
+        
         #adminPreloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #050505; z-index: 10000;
@@ -103,14 +103,14 @@
         .header-icon { font-size: 20px; background: linear-gradient(135deg, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.5)); }
         .header-title { font-size: 18px; font-weight: 700; color: white; letter-spacing: 1px; background: linear-gradient(90deg, #ffffff, #d1d5db); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* 🔥🔥 CONTENT AREA FIX 🔥🔥 */
+        
         .content-area { 
             flex-grow: 1; 
             overflow-y: auto; 
             padding: 20px; 
-            padding-bottom: 85px; /* নেভিগেশন বারের চেয়ে বেশি জায়গা রাখা হয়েছে */
+            padding-bottom: 85px; 
             height: auto; 
-            -webkit-overflow-scrolling: touch; /* আইফোনে স্মুথ স্ক্রলিং */
+            -webkit-overflow-scrolling: touch; 
         }
 
         .tab-content { display: none; animation: fadeUp 0.3s ease; }
@@ -133,7 +133,7 @@
         .btn-check { background: #333; margin-top: 5px; font-size: 13px; padding: 10px; }
         .btn-cancel { background: #444; margin-top: 10px; }
 
-        /* 🔥 SECTION SAVE BUTTONS */
+        
         .btn-section-save { width: 100%; padding: 10px; background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 8px; color: #a855f7; font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .btn-section-save:hover { background: rgba(168, 85, 247, 0.2); box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
         .btn-section-save:active { transform: scale(0.97); }
@@ -189,7 +189,7 @@
 </head>
 <body>
 
-    <!-- 🔥 ADMIN PRELOADER 🔥 -->
+    <!--  ADMIN PRELOADER  -->
     <div id="adminPreloader">
         <div class="preloader-logo-container">
             <img id="adminPreloaderLogo" src="" alt="" style="display:none;">
@@ -273,7 +273,7 @@
             <div class="ad-list" id="adListContainer"><p style="text-align:center; color:#555; font-size:12px;">Loading ads...</p></div>
         </div>
 
-        <!-- TAB 4: SETTINGS (🔥 FULLY UPDATED) -->
+        <!-- TAB 4: SETTINGS ( FULLY UPDATED) -->
         <div id="settings" class="tab-content">
             <h3 style="margin-bottom: 15px; color: #ddd;">General Settings</h3>
             
@@ -283,7 +283,7 @@
                 <span class="db-stats-value" id="dbSizeDisplay">Calculating...</span>
             </div>
 
-            <!-- 🔥 USER PANEL CONFIGURATION -->
+            <!--  USER PANEL CONFIGURATION -->
             <div class="info-box" style="margin-bottom: 15px;">
                 <h4 style="color: #a855f7; margin-bottom: 8px;">User Website Configuration</h4>
                 
@@ -294,7 +294,7 @@
                 <button class="btn-section-save" onclick="saveUserConfig()"><i class="fas fa-save"></i> Save Changes</button>
             </div>
 
-            <!-- 🔥 ADMIN PANEL CONFIGURATION (Updated with Password & Header Edit) -->
+            <!--  ADMIN PANEL CONFIGURATION (Updated with Password & Header Edit) -->
             <div class="info-box" style="margin-bottom: 15px; border-color: rgba(236, 72, 153, 0.3); background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(124, 58, 237, 0.05));">
                 <h4 style="color: #ec4899; margin-bottom: 8px;">Admin Panel Configuration</h4>
                 
@@ -406,7 +406,7 @@
         }, 1500); 
     }
 
-    // 🔥🔥 CHECKLOGIN: Checks Firebase for custom password 🔥🔥
+    
     function checkLogin() {
         const passInput = document.getElementById('adminPass').value;
         const box = document.querySelector('.login-box');
@@ -446,7 +446,7 @@
         if(lastTab) { switchTab(lastTab); } else { switchTab('upload'); }
     }
 
-    // 🔥🔥 FIXED WINDOW.ONLOAD (NOW LOADS SETTINGS) 🔥🔥
+    
     window.onload = function() { 
         initSecurity(); 
         loadDraft(); 
@@ -456,7 +456,7 @@
         loadSet(); // <--- This was missing in your code!
     };
 
-    // 🔥🔥 CALCULATE DATABASE SIZE (ESTIMATION) 🔥🔥
+    
     function calculateDBSize() {
         const display = document.getElementById('dbSizeDisplay');
         display.innerText = "Scanning...";
@@ -594,7 +594,7 @@
     }
     window.deleteAd = function(key) { if(confirm("Remove this ad?")) { db.ref('banner_ads/' + key).remove().then(() => showToast("Ad Removed!")); } };
 
-    // 🔥🔥 SETTINGS & LOAD LOGIC (FIXED) 🔥🔥
+    
     function loadSet() {
         db.ref('site_settings').on('value', s => {
             const d = s.val() || {};
