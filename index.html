@@ -88,7 +88,7 @@
             overflow: hidden; 
         }
 
-        /* 🔥🔥 PRELOADER CSS (FIXED POSITIONING) 🔥🔥 */
+        /* 🔥🔥 PRELOADER CSS 🔥🔥 */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #000000;
@@ -96,23 +96,21 @@
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             transition: opacity 0.5s ease-out;
-            perspective: 800px; /* Stronger perspective for 3D look */
+            perspective: 800px;
         }
 
-        /* Wrapper to hold Logo + Ripple together */
         .loader-visual-wrapper {
             position: relative;
             width: 140px; height: 140px;
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* Logo Container */
         .drop-plate {
             width: 100%; height: 100%;
             background: transparent; 
             display: flex; align-items: center; justify-content: center;
             position: relative;
-            z-index: 10; /* Logo is ALWAYS on top */
+            z-index: 10;
             animation: dropBounce 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             opacity: 0;
         }
@@ -122,28 +120,20 @@
             filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
         }
 
-        /* The Water/Shockwave Effect - FIXED TO BOTTOM */
         .shockwave {
             position: absolute;
             width: 140px; height: 140px; 
             border-radius: 50%;
             background: transparent;
-            /* White/Purple glow so it's visible on dark bg */
             border: 4px solid rgba(168, 85, 247, 0.8);
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.6); 
-            
-            /* 🔥 KEY FIX: Move it DOWN (translateY) so it looks like floor */
-            /* rotateX(80deg) makes it very flat like a puddle */
             transform: translateY(60px) scale(0.1) rotateX(80deg);
-            
             opacity: 0; 
-            z-index: 1; /* Below the logo */
-            
+            z-index: 1;
             animation: rippleEffect 1.5s ease-out infinite;
             animation-delay: 0.4s; 
         }
 
-        /* Text Animation */
         .loading-text-wrapper {
             margin-top: 40px; 
             font-size: 1.2rem; 
@@ -170,7 +160,6 @@
         }
         @keyframes dotBounce { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; } 40% { transform: scale(1.4); opacity: 1; } }
 
-        /* Animation Keyframes */
         @keyframes dropBounce {
             0% { transform: translateY(-350px) scale(0.5); opacity: 0; }
             50% { transform: translateY(0) scale(1.05); opacity: 1; } 
@@ -178,20 +167,9 @@
             100% { transform: translateY(0) scale(1); opacity: 1; } 
         }
 
-        /* 🔥 RIPPLE ANIMATION - Start small at feet, grow outward */
         @keyframes rippleEffect {
-            0% { 
-                /* Start at the FEET (translateY 60px) */
-                transform: translateY(60px) scale(0.2) rotateX(80deg); 
-                opacity: 1; 
-                border-width: 5px; 
-            }
-            100% { 
-                /* Expand outward but stay at FEET level */
-                transform: translateY(60px) scale(2.8) rotateX(80deg); 
-                opacity: 0; 
-                border-width: 0px; 
-            }
+            0% { transform: translateY(60px) scale(0.2) rotateX(80deg); opacity: 1; border-width: 5px; }
+            100% { transform: translateY(60px) scale(2.8) rotateX(80deg); opacity: 0; border-width: 0px; }
         }
         
         @keyframes fadeInText { to { opacity: 1; transform: translateY(0); } }
@@ -250,15 +228,82 @@
         .like-icon-full.fas { color: red !important; }
 
         /* OVERLAY */
-        .image-details-overlay { width: 100%; flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding: 10px 15px; background: var(--card-dark); border-radius: 20px 20px 0 0; text-align: center; z-index: 1000; margin-top: 0; border-top: 2px solid #B468C4; overflow: hidden; }
+        .image-details-overlay { 
+            width: 100%; flex-grow: 1; display: flex; flex-direction: column; align-items: center; padding: 10px 15px; 
+            background: var(--card-dark); border-radius: 20px 20px 0 0; text-align: center; 
+            z-index: 1000; margin-top: 0; border-top: 2px solid #B468C4; overflow: hidden; 
+            position: relative;
+        }
+        
         .image-title-view { font-size: 1.1rem; font-weight: 700; color: var(--overlay-title-color); text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 8px; width: 100%; border-bottom: 2px solid transparent; border-image: linear-gradient(to right, transparent, #B468C4, transparent) 1; padding-bottom: 8px; white-space: normal; line-height: 1.3; overflow: visible; text-overflow: clip; flex-shrink: 0; }
         .generate-btn { width: 100%; max-width: 250px; padding: 12px; border: none; border-radius: 12px; background-image: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%); color: white; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; flex-shrink: 0; }
         
-        .loading-container { display: none; width: 60px; height: 60px; margin: 10px auto; position: relative; }
-        .loading-circle { width: 100%; height: 100%; border-radius: 50%; border: 6px solid rgba(255, 255, 255, 0.1); position: relative; display: flex; align-items: center; justify-content: center; }
-        .loading-arc { position: absolute; top: -6px; left: -6px; width: calc(100% + 12px); height: calc(100% + 12px); border-radius: 50%; border: 6px solid transparent; border-top-color: var(--primary-color); border-right-color: var(--primary-color); animation: spin 1.5s linear infinite; }
-        #loadingPercentage { font-size: 1rem; font-weight: bold; color: var(--text-color); z-index: 10; }
+        /* 🔥🔥 UPDATED LOADING CSS (FADE EFFECT) 🔥🔥 */
+        .loading-container { 
+            display: none; 
+            width: 100%; 
+            height: 100%; 
+            position: absolute; 
+            top: 0; left: 0;
+            background: rgba(20, 20, 30, 0.75); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* পেছনের হালকা দাগ */
+        .loading-circle { 
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            /* পেছনের বৃত্তটি একদমই হালকা */
+            border: 4px solid rgba(255, 255, 255, 0.03); 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 10px;
+        }
+
+        /* 🔥 নতুন: কোনিক গ্রেডিয়েন্ট ব্যবহার করে ফেড ইফেক্ট */
+        .loading-arc { 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            border-radius: 50%; 
+            
+            /* কোনো বর্ডার নয়, ব্যাকগ্রাউন্ড গ্রেডিয়েন্ট */
+            background: conic-gradient(from 0deg, transparent 0%, var(--primary-color) 100%);
+            
+            /* মাঝখানের অংশ কেটে ফেলা (Masking) */
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #fff calc(100% - 5px + 1px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #fff calc(100% - 5px + 1px));
+            
+            animation: spin 0.8s linear infinite;
+        }
+        
+        /* গ্লোয়িং হেড (অপশনাল, আরো সুন্দর করার জন্য) */
+        .loading-arc::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 5px; height: 5px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+        }
+
+        #loadingPercentage { 
+            font-size: 1rem; font-weight: bold; color: white; z-index: 10; 
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* 🔥🔥 END UPDATED CSS 🔥🔥 */
         
         .result-container { display: flex; flex-direction: column; align-items: center; margin-top: 5px; width: 100%; flex-shrink: 1; min-height: 0; }
         .result-box { padding: 8px; margin: 0 auto 8px auto; background-color: var(--result-box-bg); color: var(--text-color); border-radius: 8px; font-size: 0.9rem; line-height: 1.5; border: 1px solid var(--result-box-border); width: 100%; height: 110px; overflow-y: auto; text-align: left; white-space: pre-wrap; flex-shrink: 0; cursor: default; }
@@ -285,9 +330,7 @@
     
     <!-- 🔥🔥 PLATE DROP PRELOADER 🔥🔥 -->
     <div id="preloader">
-         <!-- Wrapper to keep Logo and Shockwave together -->
          <div class="loader-visual-wrapper">
-             <!-- Logo Container -->
              <div class="drop-plate">
                  <img id="preloaderLogo" src="" alt="Loading...">
                  <script>
@@ -298,8 +341,6 @@
                      })();
                  </script>
              </div>
-             
-             <!-- The Shockwave Effect -->
              <div class="shockwave"></div>
          </div>
          
@@ -347,6 +388,7 @@
                         <i class="fas fa-magic"></i> GENERATE PROMPT
                     </button>
                     
+                    <!-- 🔥 LOADING CONTAINER 🔥 -->
                     <div class="loading-container" id="loadingContainer">
                         <div class="loading-circle">
                             <div class="loading-arc"></div>
@@ -463,7 +505,7 @@
             });
         }, { threshold: 0.15 });
 
-        // ✅✅ SITE SETTINGS: Firebase + LocalStorage Sync (UPDATED) ✅✅
+        // ✅✅ SITE SETTINGS: Firebase + LocalStorage Sync ✅✅
         function fetchSiteSettings() {
             db.ref('site_settings').on('value', snapshot => {
                 const data = snapshot.val();
@@ -619,6 +661,8 @@
             document.getElementById('promptActionButtons').style.display = 'none';
             document.getElementById('bannerAdLink').style.display = 'none'; 
             document.getElementById('generatePromptButton').style.display = 'flex';
+            document.getElementById('loadingContainer').style.display = 'none'; 
+            
             currentPromptText = data.prompt;
 
             document.body.classList.remove('gallery-active');
@@ -653,21 +697,48 @@
         document.getElementById('likeImageViewBtn').addEventListener('click', function() { toggleLike(this); });
         document.getElementById('closeImageViewBtn').addEventListener('click', () => { if(window.location.hash) { window.history.back(); } else { closeOverlayLogic(); } });
 
+        // 🔥🔥 UPDATED GENERATE BUTTON LOGIC (WITH DELAY) 🔥🔥
         document.getElementById('generatePromptButton').addEventListener('click', function() {
-            this.style.display = 'none';
+            const btn = this;
             const loader = document.getElementById('loadingContainer');
             const percentageText = document.getElementById('loadingPercentage');
-            loader.style.display = 'flex';
-            showRandomAd(); 
-            let count = 0; percentageText.innerText = "0%";
-            const interval = setInterval(() => {
-                count += 5; if(count > 100) count = 100; percentageText.innerText = count + "%";
-                if (count >= 100) { clearInterval(interval); setTimeout(() => { loader.style.display = 'none'; document.getElementById('resultContainer').style.display = 'flex'; startTyping(); }, 100); }
-            }, 10);
+
+            // 1. Show processing state
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Processing...';
+            btn.style.opacity = '0.7';
+
+            // 2. Add Delay (800ms)
+            setTimeout(() => {
+                btn.style.display = 'none'; 
+                btn.innerHTML = originalText; 
+                btn.style.opacity = '1';
+
+                loader.style.display = 'flex'; 
+                showRandomAd(); 
+                
+                let count = 0; 
+                percentageText.innerText = "0%";
+                
+                const interval = setInterval(() => {
+                    count += Math.floor(Math.random() * 3) + 1; 
+                    if(count > 100) count = 100; 
+                    percentageText.innerText = count + "%";
+                    
+                    if (count >= 100) { 
+                        clearInterval(interval); 
+                        setTimeout(() => { 
+                            loader.style.display = 'none'; 
+                            document.getElementById('resultContainer').style.display = 'flex'; 
+                            startTyping(); 
+                        }, 500); 
+                    }
+                }, 30); 
+            }, 800); 
         });
 
         function startTyping() {
-            const box = document.getElementById('resultBox'); box.innerText = ""; charIndex = 0;
+            const box = document.getElementById('resultBox'); box.innerText = ""; charIndex = 10;
             function type() { 
                 let speed = 5; 
                 for (let i = 0; i < speed; i++) {
